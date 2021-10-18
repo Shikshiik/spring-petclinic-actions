@@ -1,16 +1,16 @@
 name: GitHub Actions Automatisation EC2 AWS
 on: [push]
 jobs:
-  test:
+  TestBuildAndGO:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code - test
         uses: actions/checkout@v2
       - run: mvn package
       
-      - name: build      
-        uses: actions/checkout@v2
-      - run: mvn package
+      #- name: build      
+        #uses: actions/checkout@v2
+      #- run: mvn package
 
       - name: deploy
         uses: shimataro/ssh-key-action@v2
