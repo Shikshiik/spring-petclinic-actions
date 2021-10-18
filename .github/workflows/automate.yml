@@ -21,7 +21,7 @@ jobs:
             known_hosts: ${{ secrets.EC2_AWS }}
             if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
       - name: blah    
-        run: |
+        run: 
         
           ssh -i ${{ secrets.SSHPETCLINIC }} group3@cda.cefim-formation.org
           scp ./target/spring-petclinic-2.5.0-SNAPSHOT.jar group3@cda.cefim-formation.org:petclinic.jar
