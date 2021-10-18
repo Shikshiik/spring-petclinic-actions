@@ -7,7 +7,6 @@ jobs:
       - name: Check out repository code - test
         uses: actions/checkout@v2
       - run: ./mvn package
-      - run: echo ":desktop_computer: The workflow is now ready to test your code on the runner."
       
       #- name: build      
        # uses: actions/checkout@v2
