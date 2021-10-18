@@ -20,6 +20,14 @@ jobs:
             name: id_rsa # optional
             known_hosts: ${{ secrets.EC2_AWS }}
             if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+
+
+      - name: deploy  BIS
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSHPETCLINIC }}
+          ssh-host: ${{ secrets.EC2_AWS }}
+
       - name: blah    
         run: 
         
@@ -35,4 +43,10 @@ jobs:
           port: 8081
           user: root
           key: ${{ secrets.SSHPETCLINIC }} 
-
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: http://cda.cefim-formation.org/
+          username: root
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
