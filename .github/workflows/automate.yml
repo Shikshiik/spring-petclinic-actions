@@ -30,7 +30,7 @@ jobs:
         uses: horochx/deploy-via-scp@master
         with:
           local: localPath # eg: dist/*
-          #remote: /home/github-action/www
+          remote: ./target/spring-petclinic-2.5.0-SNAPSHOT.jar
           host: http://cda.cefim-formation.org/
           port: 8081
           user: root
