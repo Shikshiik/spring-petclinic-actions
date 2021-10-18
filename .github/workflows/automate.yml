@@ -1,35 +1,24 @@
-name: GitHub Actions Automatisation EC2 AWS
+name: GitHub Actions Demo
 on: [push]
 jobs:
-  TestBuildAndGO:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code - test
-        uses: actions/checkout@v2
-      - run: mvn package
-      
-      
-      #- name: build      
-        #uses: actions/checkout@v2
-      #- run: mvn package
-
-      - name: deploy
-        uses: shimataro/ssh-key-action@v2
-        with:
-            key: ${{ secrets.SSHPETCLINIC }}
-            name: id_rsa # optional
-            known_hosts: ${{ secrets.EC2_AWS }}
-            if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
-      - run: ssh-keyscan -H cda.cefim-formation.org >> ~/.ssh/known_hosts
-
-      #- name: blah    
-        #run: 
-          #scp ./target/spring-petclinic-2.5.0-SNAPSHOT.jar group3@cda.cefim-formation.org:petclinic.jar
-          #java -jar petclinic.jar --server.port=8083
-          
-      - name: SCP files via ssh key
-        uses: appleboy/scp-action@master
-        env:
-          USERNAME: group3
-          HOST: cda.cefim-formation.org
-          KEY: ${{ secrets.SSHPETCLINIC }}
+  test:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Check out repository code - test
+       uses: actions/checkout@v2
+     - run: mvn test
+ 
+  buildAndDeploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: build
+          uses: actions/checkout@v2
+        - run : mvn package
+        - name: deploy  
+          uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+          with:
+            ssh-private-key: ${{ secrets.SSHPETCLINIC }}
+            ssh-host: cda.cefim-formation.org
+        - run: |
+            scp ./target/spring-petclinic-2.5.0-SNAPSHOT.jar group3@cda.cefim-formation.org:petclinic.jar
+            ssh group3@cda.cefim-formation.org 'java -jar petclinic.jar --server.port=8083'
