@@ -15,9 +15,9 @@ jobs:
       - name: deploy
         uses: shimataro/ssh-key-action@v2
         with:
-            key: ${{ secrets.SSH_CDA_PRIVATE_KEY }}
+            key: ${{ secrets.SSHPETCLINIC }}
             name: id_rsa # optional
-            known_hosts: ${{ secrets.CDA_EC2_HOST }}
+            known_hosts: ${{ secrets.EC2_AWS }}
             if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
       - name: blah    
         run: 
