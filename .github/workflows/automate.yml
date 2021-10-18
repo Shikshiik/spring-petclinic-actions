@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: GitHub Actions Automatisation EC2 AWS
 on: [push]
 jobs:
   test:
@@ -8,9 +8,9 @@ jobs:
         uses: actions/checkout@v2
       - run: mvn package
       
-      #- name: build      
-       # uses: actions/checkout@v2
-      #- run: ./mvnw package
+      - name: build      
+        uses: actions/checkout@v2
+      - run: mvnw package
 
       #- name: deploy
        # uses: shimataro/ssh-key-action@v2
